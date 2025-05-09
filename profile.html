@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthAdmin Lite - User Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <img src="assets/logo.png" alt="HealthAdmin Logo">
+                    <h1>HealthAdmin Lite</h1>
+                </div>
+                <button class="sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <ul class="sidebar-menu">
+                <li>
+                    <a href="index.html">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="data.html">
+                        <i class="fas fa-heartbeat"></i>
+                        <span>Health Data</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Analytics</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-file-medical-alt"></i>
+                        <span>Reports</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-server"></i>
+                        <span>System Status</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <img src="https://via.placeholder.com/150" alt="User Avatar" id="user-avatar">
+                    </div>
+                    <div>
+                        <div class="user-name" id="user-name">John Doe</div>
+                        <div class="user-role" id="user-role">Administrator</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="main-header">
+                <div>
+                    <div class="page-title">
+                        <h2>User Profile</h2>
+                    </div>
+                    <div class="breadcrumb">
+                        <span>Home</span> / <a href="#">User Profile</a>
+                    </div>
+                </div>
+
+                <div class="header-actions">
+                    <button id="save-profile" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
+                </div>
+            </div>
+
+            <div class="profile-container">
+                <div class="profile-sidebar">
+                    <div class="profile-avatar">
+                        <img src="https://via.placeholder.com/150" alt="User Avatar" id="profile-avatar-img">
+                    </div>
+
+                    <div class="profile-info">
+                        <h3 id="profile-name">John Doe</h3>
+                        <div class="profile-role" id="profile-role">Administrator</div>
+                    </div>
+
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <div class="stat-value" id="data-points">1,254</div>
+                            <div class="stat-label">Data Points</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="last-activity">24h</div>
+                            <div class="stat-label">Last Activity</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="avg-heart-rate">72</div>
+                            <div class="stat-label">Avg. HR</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="avg-oxygen">98%</div>
+                            <div class="stat-label">Avg. O2</div>
+                        </div>
+                    </div>
+
+                    <div class="profile-actions">
+                        <label for="avatar-upload" class="btn btn-primary">
+                            <i class="fas fa-camera"></i> Change Avatar
+                        </label>
+                        <input type="file" id="avatar-upload" style="display: none;">
+                    </div>
+                </div>
+
+                <div class="profile-main">
+                    <div class="profile-tabs">
+                        <div class="profile-tab active" data-tab="personal">Personal Information</div>
+                        <div class="profile-tab" data-tab="account">Account Settings</div>
+                        <div class="profile-tab" data-tab="security">Security</div>
+                        <div class="profile-tab" data-tab="preferences">Preferences</div>
+                    </div>
+
+                    <!-- Personal Information Tab -->
+                    <div class="profile-tab-content" id="personal-tab">
+                        <div class="profile-section">
+                            <h4>Basic Information</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="full-name">Full Name</label>
+                                    <input type="text" id="full-name" value="John Doe">
+                                </div>
+                                <div class="form-group">
+                                    <label for="display-name">Display Name</label>
+                                    <input type="text" id="display-name" value="John">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="birth-date">Date of Birth</label>
+                                    <input type="date" id="birth-date" value="1985-05-15">
+                                </div>
+                                <div class="form-group">
+                                    <label for="gender">Gender</label>
+                                    <select id="gender">
+                                        <option value="male" selected>Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="other">Other</option>
+                                        <option value="not-specified">Prefer not to say</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="profile-section">
+                            <h4>Contact Information</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="email">Email Address</label>
+                                    <input type="email" id="email" value="john.doe@example.com">
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Phone Number</label>
+                                    <input type="tel" id="phone" value="+1 (555) 123-4567">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="address">Address</label>
+                                    <input type="text" id="address" value="123 Main St">
+                                </div>
+                                <div class="form-group">
+                                    <label for="city">City</label>
+                                    <input type="text" id="city" value="Anytown">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="state">State/Province</label>
+                                    <input type="text" id="state" value="CA">
+                                </div>
+                                <div class="form-group">
+                                    <label for="zip">Postal/Zip Code</label>
+                                    <input type="text" id="zip" value="12345">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="country">Country</label>
+                                    <select id="country">
+                                        <option value="us" selected>United States</option>
+                                        <option value="ca">Canada</option>
+                                        <option value="uk">United Kingdom</option>
+                                        <option value="au">Australia</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="emergency-contact">Emergency Contact</label>
+                                    <input type="text" id="emergency-contact" value="Jane Doe: +1 (555) 987-6543">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="profile-section">
+                            <h4>Medical Information</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="blood-type">Blood Type</label>
+                                    <select id="blood-type">
+                                        <option value="a+">A+</option>
+                                        <option value="a-">A-</option>
+                                        <option value="b+">B+</option>
+                                        <option value="b-">B-</option>
+                                        <option value="ab+">AB+</option>
+                                        <option value="ab-">AB-</option>
+                                        <option value="o+" selected>O+</option>
+                                        <option value="o-">O-</option>
+                                        <option value="unknown">Unknown</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="allergies">Allergies</label>
+                                    <input type="text" id="allergies" value="Penicillin, Peanuts">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="medical-conditions">Medical Conditions</label>
+                                    <textarea id="medical-conditions" rows="3">Hypertension, Type 2 Diabetes</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="medications">Current Medications</label>
+                                    <textarea id="medications" rows="3">Lisinopril 10mg, Metformin 500mg</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Account Settings Tab (initially hidden) -->
+                    <div class="profile-tab-content" id="account-tab" style="display: none;">
+                        <div class="profile-section">
+                            <h4>Account Information</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="username">Username</label>
+                                    <input type="text" id="username" value="johndoe">
+                                </div>
+                                <div class="form-group">
+                                    <label for="user-role">Role</label>
+                                    <select id="user-role" disabled>
+                                        <option value="admin" selected>Administrator</option>
+                                        <option value="healthcare">Healthcare Professional</option>
+                                        <option value="patient">Patient</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="account-status">Account Status</label>
+                                    <select id="account-status" disabled>
+                                        <option value="active" selected>Active</option>
+                                        <option value="inactive">Inactive</option>
+                                        <option value="suspended">Suspended</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="account-created">Account Created</label>
+                                    <input type="text" id="account-created" value="2025-01-15" disabled>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="profile-section">
+                            <h4>Linked Accounts</h4>
+                            <div style="margin-bottom: 15px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                    <div>
+                                        <i class="fab fa-google" style="color: #4285F4; margin-right: 10px;"></i>
+                                        <span>Google Account</span>
+                                    </div>
+                                    <button class="btn">Link Account</button>
+                                </div>
+
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                    <div>
+                                        <i class="fab fa-apple" style="color: #555; margin-right: 10px;"></i>
+                                        <span>Apple ID</span>
+                                    </div>
+                                    <button class="btn">Link Account</button>
+                                </div>
+
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <i class="fab fa-microsoft" style="color: #00a1f1; margin-right: 10px;"></i>
+                                        <span>Microsoft Account</span>
+                                    </div>
+                                    <button class="btn">Link Account</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="profile-section">
+                            <h4>Data Management</h4>
+                            <div style="margin-bottom: 15px;">
+                                <button class="btn btn-primary" id="export-user-data">
+                                    <i class="fas fa-download"></i> Export All My Data
+                                </button>
+
+                                <button class="btn btn-danger" id="delete-account" style="margin-left: 10px;">
+                                    <i class="fas fa-trash-alt"></i> Delete Account
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Security Tab (initially hidden) -->
+                    <div class="profile-tab-content" id="security-tab" style="display: none;">
+                        <div class="profile-section">
+                            <h4>Change Password</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="current-password">Current Password</label>
+                                    <input type="password" id="current-password">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="new-password">New Password</label>
+                                    <input type="password" id="new-password">
+                                </div>
+                                <div class="form-group">
+                                    <label for="confirm-new-password">Confirm New Password</label>
+                                    <input type="password" id="confirm-new-password">
+                                </div>
+                            </div>
+
+                            <div>
+                                <button class="btn btn-primary" id="change-password">
+                                    <i class="fas fa-lock"></i> Update Password
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="profile-section">
+                            <h4>Two-Factor Authentication</h4>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <div>
+                                    <p>Two-factor authentication adds an extra layer of security to your account.</p>
+                                </div>
+                                <div class="form-group" style="width: auto;">
+                                    <input type="checkbox" id="enable-2fa">
+                                    <label for="enable-2fa">Enable 2FA</label>
+                                </div>
+                            </div>
+
+                            <div id="2fa-setup" style="display: none;">
+                                <!-- 2FA setup instructions would go here -->
+                            </div>
+                        </div>
+
+                        <div class="profile-section">
+                            <h4>Login Sessions</h4>
+                            <div class="data-table">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Device</th>
+                                            <th>Location</th>
+                                            <th>IP Address</th>
+                                            <th>Last Activity</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Chrome on Windows</td>
+                                            <td>Hillsboro, OR, USA</td>
+                                            <td>192.168.1.101</td>
+                                            <td>Current Session</td>
+                                            <td>
+                                                <button class="btn btn-danger" disabled>
+                                                    <i class="fas fa-times"></i> Terminate
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Safari on iPhone</td>
+                                            <td>Hillsboro, OR, USA</td>
+                                            <td>192.168.1.105</td>
+                                            <td>2 hours ago</td>
+                                            <td>
+                                                <button class="btn btn-danger">
+                                                    <i class="fas fa-times"></i> Terminate
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div style="margin-top: 15px;">
+                                <button class="btn btn-danger" id="terminate-all-sessions">
+                                    <i class="fas fa-sign-out-alt"></i> Terminate All Other Sessions
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Preferences Tab (initially hidden) -->
+                    <div class="profile-tab-content" id="preferences-tab" style="display: none;">
+                        <div class="profile-section">
+                            <h4>Display Settings</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="theme">Theme</label>
+                                    <select id="theme">
+                                        <option value="light" selected>Light Mode</option>
+                                        <option value="dark">Dark Mode</option>
+                                        <option value="system">System Default</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="language">Language</label>
+                                    <select id="language">
+                                        <option value="en" selected>English</option>
+                                        <option value="es">Español</option>
+                                        <option value="fr">Français</option>
+                                        <option value="de">Deutsch</option>
+                                        <option value="zh">中文</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="date-format">Date Format</label>
+                                    <select id="date-format">
+                                        <option value="mdy" selected>MM/DD/YYYY</option>
+                                        <option value="dmy">DD/MM/YYYY</option>
+                                        <option value="ymd">YYYY/MM/DD</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="time-format">Time Format</label>
+                                    <select id="time-format">
+                                        <option value="12h" selected>12-hour (AM/PM)</option>
+                                        <option value="24h">24-hour</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="profile-section">
+                            <h4>Notification Preferences</h4>
+                            <div style="margin-bottom: 15px;">
+                                <div class="form-group">
+                                    <input type="checkbox" id="notify-email" checked>
+                                    <label for="notify-email">Email Notifications</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="checkbox" id="notify-browser" checked>
+                                    <label for="notify-browser">Browser Notifications</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="checkbox" id="notify-sms">
+                                    <label for="notify-sms">SMS Notifications</label>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="notification-frequency">Notification Frequency</label>
+                                    <select id="notification-frequency">
+                                        <option value="real-time" selected>Real-time</option>
+                                        <option value="hourly">Hourly Digest</option>
+                                        <option value="daily">Daily Digest</option>
+                                        <option value="weekly">Weekly Digest</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="profile-section">
+                            <h4>Health Data Thresholds</h4>
+                            <p style="margin-bottom: 15px;">Set custom alert thresholds for health metrics.</p>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="hr-low">Heart Rate Low (BPM)</label>
+                                    <input type="number" id="hr-low" value="50">
+                                </div>
+                                <div class="form-group">
+                                    <label for="hr-high">Heart Rate High (BPM)</label>
+                                    <input type="number" id="hr-high" value="100">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="o2-low">Oxygen Level Low (%)</label>
+                                    <input type="number" id="o2-low" value="94">
+                                </div>
+                                <div class="form-group">
+                                    <label for="temp-high">Temperature High (°C)</label>
+                                    <input type="number" id="temp-high" value="37.8" step="0.1">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="resp-low">Respiratory Rate Low (BPM)</label>
+                                    <input type="number" id="resp-low" value="12">
+                                </div>
+                                <div class="form-group">
+                                    <label for="resp-high">Respiratory Rate High (BPM)</label>
+                                    <input type="number" id="resp-high" value="20">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthAdmin Lite - Settings</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <img src="assets/logo.png" alt="HealthAdmin Logo">
+                    <h1>HealthAdmin Lite</h1>
+                </div>
+                <button class="sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <ul class="sidebar-menu">
+                <li>
+                    <a href="index.html">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="admin.html">
+                        <i class="fas fa-users-cog"></i>
+                        <span>User Management</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="data.html">
+                        <i class="fas fa-heartbeat"></i>
+                        <span>Health Data</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="system-status.html">
+                        <i class="fas fa-server"></i>
+                        <span>System Status</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="settings.html" class="active">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="audit-logs.html">
+                        <i class="fas fa-history"></i>
+                        <span>Audit Logs</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <img src="https://via.placeholder.com/150" alt="User Avatar" id="user-avatar">
+                    </div>
+                    <div>
+                        <div class="user-name" id="user-name">Admin User</div>
+                        <div class="user-role" id="user-role">Administrator</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="main-header">
+                <div>
+                    <div class="page-title">
+                        <h2>System Settings</h2>
+                    </div>
+                    <div class="breadcrumb">
+                        <span>Home</span> / <a href="#">Settings</a>
+                    </div>
+                </div>
+
+                <div class="header-actions">
+                    <button class="btn btn-primary" id="save-all-settings">
+                        <i class="fas fa-save"></i> Save All Changes
+                    </button>
+                </div>
+            </div>
+
+            <!-- Settings Content -->
+            <div class="settings-container">
+                <!-- Settings Sidebar -->
+                <div class="settings-sidebar">
+                    <ul class="settings-menu">
+                        <li>
+                            <a href="#general" class="active" data-target="general-settings">
+                                <i class="fas fa-sliders-h"></i> General Settings
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#users" data-target="user-settings">
+                                <i class="fas fa-users"></i> User Settings
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#security" data-target="security-settings">
+                                <i class="fas fa-shield-alt"></i> Security
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#data" data-target="data-settings">
+                                <i class="fas fa-database"></i> Data Management
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#notifications" data-target="notification-settings">
+                                <i class="fas fa-bell"></i> Notifications
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#integrations" data-target="integration-settings">
+                                <i class="fas fa-plug"></i> Integrations
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#about" data-target="about-system">
+                                <i class="fas fa-info-circle"></i> About System
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Settings Panels -->
+                <div class="settings-panels">
+                    <!-- General Settings Panel -->
+                    <div id="general-settings" class="settings-panel active">
+                        <h3>General Settings</h3>
+
+                        <div class="settings-section">
+                            <h4>System Configuration</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="system-name">System Name</label>
+                                    <input type="text" id="system-name" value="HealthAdmin Lite" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="system-domain">System Domain</label>
+                                    <input type="text" id="system-domain" value="healthadmin.local" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="admin-email">Administrator Email</label>
+                                    <input type="email" id="admin-email" value="admin@example.com" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="time-zone">Default Time Zone</label>
+                                    <select id="time-zone" class="form-control">
+                                        <option value="UTC">UTC</option>
+                                        <option value="America/New_York">Eastern Time (ET)</option>
+                                        <option value="America/Chicago">Central Time (CT)</option>
+                                        <option value="America/Denver">Mountain Time (MT)</option>
+                                        <option value="America/Los_Angeles" selected>Pacific Time (PT)</option>
+                                        <option value="Asia/Shanghai">China Standard Time (CST)</option>
+                                        <option value="Asia/Tokyo">Japan Standard Time (JST)</option>
+                                        <option value="Europe/London">Greenwich Mean Time (GMT)</option>
+                                        <option value="Europe/Paris">Central European Time (CET)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <h4>Appearance</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="theme-mode">Default Theme</label>
+                                    <select id="theme-mode" class="form-control">
+                                        <option value="light" selected>Light Mode</option>
+                                        <option value="dark">Dark Mode</option>
+                                        <option value="auto">Auto (Follow System)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="accent-color">Accent Color</label>
+                                    <select id="accent-color" class="form-control">
+                                        <option value="blue" selected>Blue</option>
+                                        <option value="green">Green</option>
+                                        <option value="purple">Purple</option>
+                                        <option value="orange">Orange</option>
+                                        <option value="red">Red</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="date-format">Date Format</label>
+                                    <select id="date-format" class="form-control">
+                                        <option value="MM/DD/YYYY" selected>MM/DD/YYYY</option>
+                                        <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+                                        <option value="YYYY/MM/DD">YYYY/MM/DD</option>
+                                        <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="time-format">Time Format</label>
+                                    <select id="time-format" class="form-control">
+                                        <option value="12" selected>12-hour (AM/PM)</option>
+                                        <option value="24">24-hour</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="language">Default Language</label>
+                                <select id="language" class="form-control">
+                                    <option value="en" selected>English</option>
+                                    <option value="es">Español</option>
+                                    <option value="fr">Français</option>
+                                    <option value="de">Deutsch</option>
+                                    <option value="zh">中文</option>
+                                    <option value="ja">日本語</option>
+                                    <option value="ru">Русский</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Settings Panel -->
+                    <div id="user-settings" class="settings-panel">
+                        <h3>User Settings</h3>
+
+                        <div class="settings-section">
+                            <h4>Registration</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="allow-registration">Allow Public Registration</label>
+                                    <select id="allow-registration" class="form-control">
+                                        <option value="1" selected>Enabled</option>
+                                        <option value="0">Disabled</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="default-role">默认用户角色</label>
+                                    <select id="default-role" class="form-control">
+                                        <option value="regular" selected>普通用户</option>
+                                        <option value="subscriber">订阅用户</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="require-email-verification">Require Email Verification</label>
+                                    <select id="require-email-verification" class="form-control">
+                                        <option value="1" selected>Yes</option>
+                                        <option value="0">No</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="require-admin-approval">Require Admin Approval</label>
+                                    <select id="require-admin-approval" class="form-control">
+                                        <option value="1">Yes</option>
+                                        <option value="0" selected>No</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <h4>Authentication</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="min-password-length">Minimum Password Length</label>
+                                    <input type="number" id="min-password-length" value="8" min="6" max="64" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="password-complexity">Password Complexity</label>
+                                    <select id="password-complexity" class="form-control">
+                                        <option value="low">Low (Letters & Numbers)</option>
+                                        <option value="medium" selected>Medium (+ Special Characters)</option>
+                                        <option value="high">High (+ Uppercase & Length ≥ 10)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="session-timeout">Session Timeout (minutes)</label>
+                                    <input type="number" id="session-timeout" value="30" min="5" max="1440" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="allow-remember-me">Allow "Remember Me"</label>
+                                    <select id="allow-remember-me" class="form-control">
+                                        <option value="1" selected>Enabled</option>
+                                        <option value="0">Disabled</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Security Settings Panel -->
+                    <div id="security-settings" class="settings-panel">
+                        <h3>Security Settings</h3>
+
+                        <div class="settings-section">
+                            <h4>System Security</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="enable-https">Force HTTPS</label>
+                                    <select id="enable-https" class="form-control">
+                                        <option value="1" selected>Enabled</option>
+                                        <option value="0">Disabled</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="enable-csrf">CSRF Protection</label>
+                                    <select id="enable-csrf" class="form-control">
+                                        <option value="1" selected>Enabled</option>
+                                        <option value="0">Disabled</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="enable-xss">XSS Protection</label>
+                                    <select id="enable-xss" class="form-control">
+                                        <option value="1" selected>Enabled</option>
+                                        <option value="0">Disabled</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ssl-mode">SSL Mode</label>
+                                    <select id="ssl-mode" class="form-control">
+                                        <option value="strict" selected>Strict</option>
+                                        <option value="flexible">Flexible</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <h4>Login Protection</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="enable-2fa">Enable Two-Factor Authentication</label>
+                                    <select id="enable-2fa" class="form-control">
+                                        <option value="optional" selected>Optional for Users</option>
+                                        <option value="required">Required for All Users</option>
+                                        <option value="disabled">Disabled</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="login-attempts">Max Failed Login Attempts</label>
+                                    <input type="number" id="login-attempts" value="5" min="1" max="10" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="lockout-time">Account Lockout Time (minutes)</label>
+                                    <input type="number" id="lockout-time" value="30" min="5" max="1440" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="ip-blocking">IP Blocking</label>
+                                    <select id="ip-blocking" class="form-control">
+                                        <option value="1" selected>Enabled</option>
+                                        <option value="0">Disabled</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Data Management Settings Panel -->
+                    <div id="data-settings" class="settings-panel">
+                        <h3>Data Management Settings</h3>
+
+                        <div class="settings-section">
+                            <h4>Database Settings</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="db-host">Database Host</label>
+                                    <input type="text" id="db-host" value="localhost" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="db-port">Database Port</label>
+                                    <input type="number" id="db-port" value="3306" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="db-name">Database Name</label>
+                                    <input type="text" id="db-name" value="healthadmin" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="db-user">Database User</label>
+                                    <input type="text" id="db-user" value="healthadmin_user" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="db-password">Database Password</label>
+                                <input type="password" id="db-password" value="••••••••••••" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <h4>Backup & Maintenance</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="auto-backup">Automatic Backups</label>
+                                    <select id="auto-backup" class="form-control">
+                                        <option value="daily" selected>Daily</option>
+                                        <option value="weekly">Weekly</option>
+                                        <option value="monthly">Monthly</option>
+                                        <option value="disabled">Disabled</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="backup-time">Backup Time</label>
+                                    <input type="time" id="backup-time" value="02:00" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="backup-retention">Backup Retention (days)</label>
+                                    <input type="number" id="backup-retention" value="30" min="1" max="365" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="backup-location">Backup Location</label>
+                                    <input type="text" id="backup-location" value="/var/backups/healthadmin" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <h4>Data Retention</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="log-retention">Log Retention (days)</label>
+                                    <input type="number" id="log-retention" value="90" min="1" max="365" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="enable-data-purging">Automatic Data Purging</label>
+                                    <select id="enable-data-purging" class="form-control">
+                                        <option value="1">Enabled</option>
+                                        <option value="0" selected>Disabled</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notification Settings Panel -->
+                    <div id="notification-settings" class="settings-panel">
+                        <h3>Notification Settings</h3>
+
+                        <div class="settings-section">
+                            <h4>Email Notifications</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="mail-driver">Mail Driver</label>
+                                    <select id="mail-driver" class="form-control">
+                                        <option value="smtp" selected>SMTP</option>
+                                        <option value="sendmail">Sendmail</option>
+                                        <option value="mailgun">Mailgun</option>
+                                        <option value="ses">Amazon SES</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="mail-host">SMTP Host</label>
+                                    <input type="text" id="mail-host" value="smtp.example.com" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="mail-port">SMTP Port</label>
+                                    <input type="number" id="mail-port" value="587" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="mail-encryption">Encryption</label>
+                                    <select id="mail-encryption" class="form-control">
+                                        <option value="tls" selected>TLS</option>
+                                        <option value="ssl">SSL</option>
+                                        <option value="none">None</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="mail-username">SMTP Username</label>
+                                    <input type="text" id="mail-username" value="notifications@example.com" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="mail-password">SMTP Password</label>
+                                    <input type="password" id="mail-password" value="••••••••••••" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="mail-from-name">From Name</label>
+                                    <input type="text" id="mail-from-name" value="HealthAdmin Lite" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="mail-from-address">From Address</label>
+                                    <input type="email" id="mail-from-address" value="notifications@example.com" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <h4>Alert Settings</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="notify-admin-login">Admin Login Notifications</label>
+                                    <select id="notify-admin-login" class="form-control">
+                                        <option value="1" selected>Enabled</option>
+                                        <option value="0">Disabled</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="notify-failed-login">Failed Login Notifications</label>
+                                    <select id="notify-failed-login" class="form-control">
+                                        <option value="1" selected>Enabled</option>
+                                        <option value="0">Disabled</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="notify-new-user">New User Notifications</label>
+                                    <select id="notify-new-user" class="form-control">
+                                        <option value="1" selected>Enabled</option>
+                                        <option value="0">Disabled</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="notify-system-issues">System Issues Notifications</label>
+                                    <select id="notify-system-issues" class="form-control">
+                                        <option value="1" selected>Enabled</option>
+                                        <option value="0">Disabled</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Integration Settings Panel -->
+                    <div id="integration-settings" class="settings-panel">
+                        <h3>Integration Settings</h3>
+
+                        <div class="settings-section">
+                            <h4>API Configuration</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="enable-api">Enable API</label>
+                                    <select id="enable-api" class="form-control">
+                                        <option value="1" selected>Enabled</option>
+                                        <option value="0">Disabled</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="api-rate-limit">API Rate Limit (requests per minute)</label>
+                                    <input type="number" id="api-rate-limit" value="60" min="10" max="1000" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="api-key">API Key</label>
+                                <div class="input-group">
+                                    <input type="text" id="api-key" value="hdk7f9s87f9s8d7f987sd9f87sd98f7" class="form-control" readonly>
+                                    <button class="btn btn-primary" id="regenerate-api-key">
+                                        <i class="fas fa-sync-alt"></i> Regenerate
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <h4>External Services</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="enable-sms">SMS Service</label>
+                                    <select id="enable-sms" class="form-control">
+                                        <option value="1">Enabled</option>
+                                        <option value="0" selected>Disabled</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="sms-provider">SMS Provider</label>
+                                    <select id="sms-provider" class="form-control" disabled>
+                                        <option value="twilio">Twilio</option>
+                                        <option value="nexmo">Nexmo</option>
+                                        <option value="aws">AWS SNS</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="sms-api-key">SMS API Key</label>
+                                    <input type="text" id="sms-api-key" value="" class="form-control" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="sms-api-secret">SMS API Secret</label>
+                                    <input type="password" id="sms-api-secret" value="" class="form-control" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- About System Panel -->
+                    <div id="about-system" class="settings-panel">
+                        <h3>About System</h3>
+
+                        <div class="settings-section">
+                            <h4>System Information</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>System Name</label>
+                                    <div class="form-control-static">HealthAdmin Lite</div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Version</label>
+                                    <div class="form-control-static">1.0.0</div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>PHP Version</label>
+                                    <div class="form-control-static">8.1.12</div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Database</label>
+                                    <div class="form-control-static">MySQL 8.0.28</div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Server OS</label>
+                                    <div class="form-control-static">Raspberry Pi OS 11 (Bullseye)</div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Web Server</label>
+                                    <div class="form-control-static">Nginx 1.21.6</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <h4>License Information</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>License Type</label>
+                                    <div class="form-control-static">Open Source (MIT)</div>
+                                </div>
+                                <div class="form-group">
+                                    <label>License Holder</label>
+                                    <div class="form-control-static">Your Organization</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <h4>Support Information</h4>
+                            <div class="form-group">
+                                <label>Support Email</label>
+                                <div class="form-control-static">support@example.com</div>
+                            </div>
+
+                            <div class="form-group">
+                                <a href="#" class="btn btn-primary">
+                                    <i class="fas fa-book"></i> View Documentation
+                                </a>
+                                <a href="#" class="btn btn-success">
+                                    <i class="fas fa-life-ring"></i> Get Support
+                                </a>
+                                <a href="#" class="btn">
+                                    <i class="fas fa-code-branch"></i> Check for Updates
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/settings.js"></script>
+</body>
+</html>

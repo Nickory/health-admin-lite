@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthAdmin Lite - System Status</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <img src="assets/logo.png" alt="HealthAdmin Logo">
+                    <h1>HealthAdmin Lite</h1>
+                </div>
+                <button class="sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <ul class="sidebar-menu">
+                <li>
+                    <a href="index.html">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="admin.html">
+                        <i class="fas fa-users-cog"></i>
+                        <span>User Management</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="data.html">
+                        <i class="fas fa-heartbeat"></i>
+                        <span>Health Data</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="system-status.html" class="active">
+                        <i class="fas fa-server"></i>
+                        <span>System Status</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="settings.html">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="audit-logs.html">
+                        <i class="fas fa-history"></i>
+                        <span>Audit Logs</span>
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <img src="https://via.placeholder.com/150" alt="User Avatar" id="user-avatar">
+                    </div>
+                    <div>
+                        <div class="user-name" id="user-name">Admin User</div>
+                        <div class="user-role" id="user-role">Administrator</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="main-header">
+                <div>
+                    <div class="page-title">
+                        <h2>System Status</h2>
+                    </div>
+                    <div class="breadcrumb">
+                        <span>Home</span> / <a href="#">System Status</a>
+                    </div>
+                </div>
+                
+                <div class="header-actions">
+                    <div class="refresh-info">
+                        <span id="last-update-time">Last updated: 1 minute ago</span>
+                        <button class="btn btn-primary" id="refresh-status">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                    </div>
+                    
+                    <button class="btn btn-success" id="system-backup">
+                        <i class="fas fa-download"></i> Backup System
+                    </button>
+                    
+                    <button class="btn btn-danger" id="restart-services">
+                        <i class="fas fa-power-off"></i> Restart Services
+                    </button>
+                </div>
+            </div>
+            
+            <!-- System Overview -->
+            <div class="dashboard-widgets">
+                <div class="widget">
+                    <div class="widget-icon blue">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <div class="widget-content">
+                        <div class="widget-title">CPU Usage</div>
+                        <div class="widget-value" id="cpu-usage">32%</div>
+                        <div class="widget-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 32%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="widget">
+                    <div class="widget-icon green">
+                        <i class="fas fa-memory"></i>
+                    </div>
+                    <div class="widget-content">
+                        <div class="widget-title">Memory Usage</div>
+                        <div class="widget-value" id="memory-usage">45%</div>
+                        <div class="widget-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 45%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="widget">
+                    <div class="widget-icon orange">
+                        <i class="fas fa-hdd"></i>
+                    </div>
+                    <div class="widget-content">
+                        <div class="widget-title">Disk Usage</div>
+                        <div class="widget-value" id="disk-usage">58%</div>
+                        <div class="widget-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 58%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="widget">
+                    <div class="widget-icon purple">
+                        <i class="fas fa-thermometer-half"></i>
+                    </div>
+                    <div class="widget-content">
+                        <div class="widget-title">System Temperature</div>
+                        <div class="widget-value" id="system-temp">48°C</div>
+                        <div class="widget-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 48%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- System Resource Monitoring -->
+            <div class="row">
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <div class="chart-title">Resource Usage History</div>
+                        <div class="chart-actions">
+                            <select class="chart-filter" id="resource-history-period">
+                                <option value="hour">Last Hour</option>
+                                <option value="day" selected>Last 24 Hours</option>
+                                <option value="week">Last Week</option>
+                                <option value="month">Last Month</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="chart">
+                        <canvas id="resourceChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Services Status -->
+            <div class="card">
+                <div class="chart-header">
+                    <div class="chart-title">Services Status</div>
+                    <div class="chart-actions">
+                        <button class="btn btn-primary" id="restart-all-services">
+                            <i class="fas fa-sync-alt"></i> Restart All
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="data-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Service Name</th>
+                                <th>Status</th>
+                                <th>Uptime</th>
+                                <th>Last Restart</th>
+                                <th>Memory Usage</th>
+                                <th>CPU Usage</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="services-table">
+                            <tr>
+                                <td>Web Server (Nginx)</td>
+                                <td><span class="status-badge normal">Running</span></td>
+                                <td>3d 7h 22m</td>
+                                <td>2025-05-06 08:45:12</td>
+                                <td>128 MB</td>
+                                <td>2.4%</td>
+                                <td class="table-actions">
+                                    <button class="btn btn-primary btn-sm" onclick="restartService('web-server')">
+                                        <i class="fas fa-sync-alt"></i> Restart
+                                    </button>
+                                    <button class="btn btn-danger btn-sm" onclick="stopService('web-server')">
+                                        <i class="fas fa-stop"></i> Stop
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Database Server (MySQL)</td>
+                                <td><span class="status-badge normal">Running</span></td>
+                                <td>3d 7h 22m</td>
+                                <td>2025-05-06 08:45:10</td>
+                                <td>256 MB</td>
+                                <td>4.7%</td>
+                                <td class="table-actions">
+                                    <button class="btn btn-primary btn-sm" onclick="restartService('db-server')">
+                                        <i class="fas fa-sync-alt"></i> Restart
+                                    </button>
+                                    <button class="btn btn-danger btn-sm" onclick="stopService('db-server')">
+                                        <i class="fas fa-stop"></i> Stop
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>API Server (Node.js)</td>
+                                <td><span class="status-badge normal">Running</span></td>
+                                <td>3d 7h 22m</td>
+                                <td>2025-05-06 08:45:18</td>
+                                <td>180 MB</td>
+                                <td>3.2%</td>
+                                <td class="table-actions">
+                                    <button class="btn btn-primary btn-sm" onclick="restartService('api-server')">
+                                        <i class="fas fa-sync-alt"></i> Restart
+                                    </button>
+                                    <button class="btn btn-danger btn-sm" onclick="stopService('api-server')">
+                                        <i class="fas fa-stop"></i> Stop
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Data Collector Service</td>
+                                <td><span class="status-badge normal">Running</span></td>
+                                <td>3d 7h 22m</td>
+                                <td>2025-05-06 08:45:22</td>
+                                <td>96 MB</td>
+                                <td>1.8%</td>
+                                <td class="table-actions">
+                                    <button class="btn btn-primary btn-sm" onclick="restartService('data-collector')">
+                                        <i class="fas fa-sync-alt"></i> Restart
+                                    </button>
+                                    <button class="btn btn-danger btn-sm" onclick="stopService('data-collector')">
+                                        <i class="fas fa-stop"></i> Stop
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Notification Service</td>
+                                <td><span class="status-badge normal">Running</span></td>
+                                <td>3d 7h 22m</td>
+                                <td>2025-05-06 08:45:25</td>
+                                <td>76 MB</td>
+                                <td>0.9%</td>
+                                <td class="table-actions">
+                                    <button class="btn btn-primary btn-sm" onclick="restartService('notification-service')">
+                                        <i class="fas fa-sync-alt"></i> Restart
+                                    </button>
+                                    <button class="btn btn-danger btn-sm" onclick="stopService('notification-service')">
+                                        <i class="fas fa-stop"></i> Stop
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Backup Service</td>
+                                <td><span class="status-badge warning">Pending</span></td>
+                                <td>1d 13h 45m</td>
+                                <td>2025-05-08 02:22:14</td>
+                                <td>45 MB</td>
+                                <td>0.5%</td>
+                                <td class="table-actions">
+                                    <button class="btn btn-primary btn-sm" onclick="restartService('backup-service')">
+                                        <i class="fas fa-sync-alt"></i> Restart
+                                    </button>
+                                    <button class="btn btn-success btn-sm" onclick="startService('backup-service')">
+                                        <i class="fas fa-play"></i> Start
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Database Status -->
+            <div class="row">
+                <div class="database-status">
+                    <div class="card">
+                        <div class="chart-header">
+                            <div class="chart-title">Database Status</div>
+                            <div class="chart-actions">
+                                <button class="btn btn-primary" id="optimize-db">
+                                    <i class="fas fa-wrench"></i> Optimize
+                                </button>
+                                <button class="btn btn-success" id="backup-db">
+                                    <i class="fas fa-database"></i> Backup
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="dashboard-widgets">
+                            <div class="widget">
+                                <div class="widget-icon blue">
+                                    <i class="fas fa-database"></i>
+                                </div>
+                                <div class="widget-content">
+                                    <div class="widget-title">Database Size</div>
+                                    <div class="widget-value" id="db-size">1.24 GB</div>
+                                </div>
+                            </div>
+                            
+                            <div class="widget">
+                                <div class="widget-icon green">
+                                    <i class="fas fa-table"></i>
+                                </div>
+                                <div class="widget-content">
+                                    <div class="widget-title">Tables</div>
+                                    <div class="widget-value" id="db-tables">24</div>
+                                </div>
+                            </div>
+                            
+                            <div class="widget">
+                                <div class="widget-icon orange">
+                                    <i class="fas fa-plug"></i>
+                                </div>
+                                <div class="widget-content">
+                                    <div class="widget-title">Connections</div>
+                                    <div class="widget-value" id="db-connections">5</div>
+                                </div>
+                            </div>
+                            
+                            <div class="widget">
+                                <div class="widget-icon purple">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="widget-content">
+                                    <div class="widget-title">Last Backup</div>
+                                    <div class="widget-value" id="last-backup">2025-05-08 02:00</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="data-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Table Name</th>
+                                        <th>Records</th>
+                                        <th>Size</th>
+                                        <th>Last Update</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="db-tables-table">
+                                    <tr>
+                                        <td>users</td>
+                                        <td>48</td>
+                                        <td>8.5 MB</td>
+                                        <td>2025-05-09 09:45:22</td>
+                                        <td><span class="status-badge normal">OK</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>health_data</td>
+                                        <td>24,582</td>
+                                        <td>456.8 MB</td>
+                                        <td>2025-05-09 10:12:03</td>
+                                        <td><span class="status-badge normal">OK</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>sessions</td>
+                                        <td>12</td>
+                                        <td>2.1 MB</td>
+                                        <td>2025-05-09 10:14:45</td>
+                                        <td><span class="status-badge normal">OK</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>logs</td>
+                                        <td>52,431</td>
+                                        <td>298.4 MB</td>
+                                        <td>2025-05-09 10:15:02</td>
+                                        <td><span class="status-badge warning">Fragmented</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>settings</td>
+                                        <td>85</td>
+                                        <td>1.2 MB</td>
+                                        <td>2025-05-08 16:30:18</td>
+                                        <td><span class="status-badge normal">OK</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- System Logs -->
+            <div class="card">
+                <div class="chart-header">
+                    <div class="chart-title">System Logs</div>
+                    <div class="chart-actions">
+                        <select class="chart-filter" id="log-level-filter">
+                            <option value="all" selected>All Levels</option>
+                            <option value="info">Info</option>
+                            <option value="warning">Warning</option>
+                            <option value="error">Error</option>
+                            <option value="critical">Critical</option>
+                        </select>
+                        <button class="btn btn-primary" id="download-logs">
+                            <i class="fas fa-download"></i> Download Logs
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="system-logs">
+                    <div class="log-entry">
+                        <div class="log-level info">INFO</div>
+                        <div class="log-time">2025-05-09 10:15:02</div>
+                        <div class="log-service">API Server</div>
+                        <div class="log-message">User 'johndoe' logged in successfully.</div>
+                    </div>
+                    <div class="log-entry">
+                        <div class="log-level info">INFO</div>
+                        <div class="log-time">2025-05-09 10:14:45</div>
+                        <div class="log-service">Data Collector</div>
+                        <div class="log-message">New health data received from device ID: DEV-2023-045.</div>
+                    </div>
+                    <div class="log-entry">
+                        <div class="log-level warning">WARNING</div>
+                        <div class="log-time">2025-05-09 10:12:03</div>
+                        <div class="log-service">Database Server</div>
+                        <div class="log-message">High query load detected (45 queries/sec).</div>
+                    </div>
+                    <div class="log-entry">
+                        <div class="log-level error">ERROR</div>
+                        <div class="log-time">2025-05-09 10:10:22</div>
+                        <div class="log-service">Notification Service</div>
+                        <div class="log-message">Failed to send notification email to user 'janedoe@example.com'.</div>
+                    </div>
+                    <div class="log-entry">
+                        <div class="log-level info">INFO</div>
+                        <div class="log-time">2025-05-09 10:05:16</div>
+                        <div class="log-service">Web Server</div>
+                        <div class="log-message">HTTP request handled: GET /api/health-data/user/15 (200 OK).</div>
+                    </div>
+                    <div class="log-entry">
+                        <div class="log-level critical">CRITICAL</div>
+                        <div class="log-time">2025-05-09 09:58:04</div>
+                        <div class="log-service">System</div>
+                        <div class="log-message">Disk space running low (85% used). Consider cleanup or expansion.</div>
+                    </div>
+                    <div class="log-entry">
+                        <div class="log-level info">INFO</div>
+                        <div class="log-time">2025-05-09 09:45:22</div>
+                        <div class="log-service">API Server</div>
+                        <div class="log-message">New user 'sarahsmith' registered successfully.</div>
+                    </div>
+                </div>
+                
+                <div class="pagination" style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+                    <div id="logs-pagination-info">
+                        Showing 1 to 7 of 584 entries
+                    </div>
+                    
+                    <div class="pagination-controls" style="display: flex; gap: 5px;">
+                        <button class="btn" id="logs-prev-page" disabled>Previous</button>
+                        <div id="logs-page-numbers" style="display: flex; gap: 5px;">
+                            <button class="btn btn-primary">1</button>
+                            <button class="btn">2</button>
+                            <button class="btn">3</button>
+                            <button class="btn">4</button>
+                        </div>
+                        <button class="btn" id="logs-next-page">Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Restart Service Confirmation Modal -->
+    <div id="restart-service-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Restart Service</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to restart <span id="service-name-to-restart">this service</span>?</p>
+                <p class="warning-text">This may temporarily interrupt service for users.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" id="confirm-restart-service">Yes, Restart</button>
+                <button class="btn" id="cancel-restart-service">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Backup System Modal -->
+    <div id="backup-system-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>System Backup</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Select the components you want to backup:</p>
+                <div class="backup-options">
+                    <div class="form-group">
+                        <input type="checkbox" id="backup-database" checked>
+                        <label for="backup-database">Database (1.24 GB)</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" id="backup-user-files" checked>
+                        <label for="backup-user-files">User Files (256 MB)</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" id="backup-system-config" checked>
+                        <label for="backup-system-config">System Configuration (12 MB)</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" id="backup-logs">
+                        <label for="backup-logs">System Logs (298 MB)</label>
+                    </div>
+                </div>
+                
+                <div class="backup-settings">
+                    <div class="form-group">
+                        <label for="backup-location">Backup Location:</label>
+                        <select id="backup-location">
+                            <option value="local" selected>Local Storage</option>
+                            <option value="network">Network Drive</option>
+                            <option value="cloud">Cloud Storage</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="backup-compression">Compression Level:</label>
+                        <select id="backup-compression">
+                            <option value="none">None</option>
+                            <option value="low">Low</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="backup-encryption">Encryption:</label>
+                        <select id="backup-encryption">
+                            <option value="none">None</option>
+                            <option value="standard" selected>Standard (AES-256)</option>
+                            <option value="high">High Security</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="start-backup">Start Backup</button>
+                <button class="btn" id="cancel-backup">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/system.js"></script>
+</body>
+</html>

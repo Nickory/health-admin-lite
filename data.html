@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthAdmin Lite - Health Data</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <img src="assets/logo.png" alt="HealthAdmin Logo">
+                    <h1>HealthAdmin Lite</h1>
+                </div>
+                <button class="sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <ul class="sidebar-menu">
+                <li>
+                    <a href="index.html">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="data.html" class="active">
+                        <i class="fas fa-heartbeat"></i>
+                        <span>Health Data</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Analytics</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-file-medical-alt"></i>
+                        <span>Reports</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-server"></i>
+                        <span>System Status</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <img src="https://via.placeholder.com/150" alt="User Avatar" id="user-avatar">
+                    </div>
+                    <div>
+                        <div class="user-name" id="user-name">John Doe</div>
+                        <div class="user-role" id="user-role">Administrator</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="main-header">
+                <div>
+                    <div class="page-title">
+                        <h2>Health Data</h2>
+                    </div>
+                    <div class="breadcrumb">
+                        <span>Home</span> / <a href="#">Health Data</a>
+                    </div>
+                </div>
+
+                <div class="header-actions">
+                    <div class="search-bar">
+                        <input type="text" placeholder="Search data...">
+                        <i class="fas fa-search"></i>
+                    </div>
+
+                    <button class="btn btn-primary" id="export-data">
+                        <i class="fas fa-download"></i> Export
+                    </button>
+
+                    <button class="btn btn-success" id="import-data">
+                        <i class="fas fa-upload"></i> Import
+                    </button>
+                </div>
+            </div>
+
+            <!-- Data Filters -->
+            <div class="card">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                    <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                        <div>
+                            <label for="date-range">Date Range:</label>
+                            <select id="date-range" class="chart-filter">
+                                <option value="today">Today</option>
+                                <option value="yesterday">Yesterday</option>
+                                <option value="week" selected>Last 7 Days</option>
+                                <option value="month">This Month</option>
+                                <option value="custom">Custom Range</option>
+                            </select>
+                        </div>
+
+                        <div id="custom-date-range" style="display: none;">
+                            <label for="start-date">From:</label>
+                            <input type="date" id="start-date">
+                            <label for="end-date">To:</label>
+                            <input type="date" id="end-date">
+                        </div>
+
+                        <div>
+                            <label for="data-type">Data Type:</label>
+                            <select id="data-type" class="chart-filter">
+                                <option value="all" selected>All Data</option>
+                                <option value="heart-rate">Heart Rate</option>
+                                <option value="oxygen">Oxygen Level</option>
+                                <option value="temperature">Temperature</option>
+                                <option value="respiratory">Respiratory Rate</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <button class="btn btn-primary" id="apply-filters">
+                            <i class="fas fa-filter"></i> Apply Filters
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Multi-metric Chart -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <div class="chart-title">Health Metrics Comparison</div>
+                    <div class="chart-actions">
+                        <select class="chart-filter" id="chart-view-type">
+                            <option value="line" selected>Line Chart</option>
+                            <option value="bar">Bar Chart</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="chart">
+                    <canvas id="healthMetricsChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Health Data Table with Pagination -->
+            <div class="card">
+                <div class="chart-header">
+                    <div class="chart-title">Health Records</div>
+                    <div class="chart-actions">
+                        <select id="entries-per-page" class="chart-filter">
+                            <option value="10">10 per page</option>
+                            <option value="25" selected>25 per page</option>
+                            <option value="50">50 per page</option>
+                            <option value="100">100 per page</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="data-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date & Time</th>
+                                <th>Heart Rate (BPM)</th>
+                                <th>Oxygen Level (%)</th>
+                                <th>Temperature (°C)</th>
+                                <th>Resp. Rate (BPM)</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="health-data-records">
+                            <!-- Data will be populated via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+                    <div id="data-pagination-info">
+                        Showing 1 to 25 of 100 entries
+                    </div>
+
+                    <div id="data-pagination" style="display: flex; gap: 5px;">
+                        <button class="btn" id="prev-page" disabled>Previous</button>
+                        <div id="page-numbers" style="display: flex; gap: 5px;">
+                            <button class="btn btn-primary">1</button>
+                            <button class="btn">2</button>
+                            <button class="btn">3</button>
+                            <button class="btn">4</button>
+                        </div>
+                        <button class="btn" id="next-page">Next</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Abnormal Data Alerts -->
+            <div class="card">
+                <div class="chart-header">
+                    <div class="chart-title">Abnormal Data Alerts</div>
+                </div>
+
+                <div id="alerts-container">
+                    <!-- Alerts will be populated via JavaScript -->
+                    <div class="alert" style="background-color: rgba(244, 67, 54, 0.1); padding: 15px; border-left: 4px solid var(--danger-color); margin-bottom: 10px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <h4 style="color: var(--danger-color); margin-bottom: 5px;">High Heart Rate Alert</h4>
+                                <p>Heart rate reached 110 BPM at 2025-05-08 14:32:45, which is above normal range.</p>
+                            </div>
+                            <div>
+                                <button class="btn btn-danger">Dismiss</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="alert" style="background-color: rgba(255, 179, 0, 0.1); padding: 15px; border-left: 4px solid var(--warning-color); margin-bottom: 10px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <h4 style="color: var(--warning-color); margin-bottom: 5px;">Low Oxygen Level Warning</h4>
+                                <p>Oxygen level dropped to 93% at 2025-05-08 08:15:22, which is below optimal range.</p>
+                            </div>
+                            <div>
+                                <button class="btn btn-warning">Dismiss</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Data Record Modal -->
+    <div id="data-record-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 1000;">
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border-radius: var(--border-radius); width: 90%; max-width: 500px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h3>Health Data Record Details</h3>
+                <button id="close-modal" style="background: none; border: none; font-size: 20px; cursor: pointer;">×</button>
+            </div>
+
+            <div id="record-details">
+                <!-- Record details will be populated via JavaScript -->
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; margin-top: 20px; gap: 10px;">
+                <button class="btn btn-danger" id="delete-record">Delete</button>
+                <button class="btn btn-primary" id="edit-record">Edit</button>
+                <button class="btn" id="cancel-modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/data_view.js"></script>
+</body>
+</html>

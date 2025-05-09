@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthAdmin Lite - Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <img src="assets/logo.png" alt="HealthAdmin Logo">
+                    <h1>HealthAdmin Lite</h1>
+                </div>
+                <button class="sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <ul class="sidebar-menu">
+                <li>
+                    <a href="index.html">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="admin.html" class="active">
+                        <i class="fas fa-users-cog"></i>
+                        <span>User Management</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="data.html">
+                        <i class="fas fa-heartbeat"></i>
+                        <span>Health Data</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="system-status.html">
+                        <i class="fas fa-server"></i>
+                        <span>System Status</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="settings.html">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="audit-logs.html">
+                        <i class="fas fa-history"></i>
+                        <span>Audit Logs</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <img src="https://via.placeholder.com/150" alt="User Avatar" id="user-avatar">
+                    </div>
+                    <div>
+                        <div class="user-name" id="user-name">Admin User</div>
+                        <div class="user-role" id="user-role">Administrator</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="main-header">
+                <div>
+                    <div class="page-title">
+                        <h2>User Management</h2>
+                    </div>
+                    <div class="breadcrumb">
+                        <span>Home</span> / <a href="#">User Management</a>
+                    </div>
+                </div>
+
+                <div class="header-actions">
+                    <div class="search-bar">
+                        <input type="text" placeholder="Search users..." id="user-search">
+                        <i class="fas fa-search"></i>
+                    </div>
+
+                    <button class="btn btn-primary" id="add-user-btn">
+                        <i class="fas fa-user-plus"></i> Add User
+                    </button>
+
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle">
+                            <i class="fas fa-filter"></i> Filter
+                        </button>
+                        <div class="dropdown-content">
+                            <a href="#" data-role="all">所有用户</a>
+                            <a href="#" data-role="admin">管理员</a>
+                            <a href="#" data-role="subscriber">订阅用户</a>
+                            <a href="#" data-role="regular">普通用户</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User Statistics -->
+            <div class="dashboard-widgets">
+                <div class="widget">
+                    <div class="widget-icon blue">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="widget-content">
+                        <div class="widget-title">Total Users</div>
+                        <div class="widget-value" id="total-users">48</div>
+                        <div class="widget-change positive">
+                            <i class="fas fa-arrow-up"></i> +5 this month
+                        </div>
+                    </div>
+                </div>
+
+                <div class="widget">
+                    <div class="widget-icon green">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <div class="widget-content">
+                        <div class="widget-title">订阅用户</div>
+                        <div class="widget-value" id="subscriber-users">15</div>
+                        <div class="widget-change positive">
+                            <i class="fas fa-arrow-up"></i> +3 this month
+                        </div>
+                    </div>
+                </div>
+
+                <div class="widget">
+                    <div class="widget-icon orange">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="widget-content">
+                        <div class="widget-title">普通用户</div>
+                        <div class="widget-value" id="regular-users">29</div>
+                        <div class="widget-change positive">
+                            <i class="fas fa-arrow-up"></i> +5 this month
+                        </div>
+                    </div>
+                </div>
+
+                <div class="widget">
+                    <div class="widget-icon red">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <div class="widget-content">
+                        <div class="widget-title">Administrators</div>
+                        <div class="widget-value" id="admin-users">4</div>
+                        <div class="widget-change neutral">
+                            <i class="fas fa-equals"></i> No change
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User List -->
+            <div class="card">
+                <div class="chart-header">
+                    <div class="chart-title">User Accounts</div>
+                    <div class="chart-actions">
+                        <select id="users-per-page" class="chart-filter">
+                            <option value="10">10 per page</option>
+                            <option value="25" selected>25 per page</option>
+                            <option value="50">50 per page</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="data-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Status</th>
+                                <th>Last Login</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="user-list-table">
+                            <!-- User data will be populated via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+                    <div id="users-pagination-info">
+                        Showing 1 to 25 of 48 entries
+                    </div>
+
+                    <div id="users-pagination" style="display: flex; gap: 5px;">
+                        <button class="btn" id="users-prev-page" disabled>Previous</button>
+                        <div id="users-page-numbers" style="display: flex; gap: 5px;">
+                            <button class="btn btn-primary">1</button>
+                            <button class="btn">2</button>
+                        </div>
+                        <button class="btn" id="users-next-page">Next</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="card">
+                <div class="chart-header">
+                    <div class="chart-title">Recent Activity</div>
+                    <div class="chart-actions">
+                        <button class="btn btn-primary" id="view-all-logs">
+                            <i class="fas fa-list"></i> View All Logs
+                        </button>
+                    </div>
+                </div>
+
+                <div class="data-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>User</th>
+                                <th>Action</th>
+                                <th>Details</th>
+                                <th>IP Address</th>
+                            </tr>
+                        </thead>
+                        <tbody id="activity-log-table">
+                            <!-- Activity logs will be populated via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Details Modal -->
+    <div id="user-details-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>User Details</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body" id="user-details-content">
+                <!-- User details will be populated via JavaScript -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" id="delete-user-btn">Delete User</button>
+                <button class="btn btn-warning" id="suspend-user-btn">Suspend Account</button>
+                <button class="btn btn-primary" id="edit-user-btn">Edit User</button>
+                <button class="btn btn-success" id="view-health-data-btn">View Health Data</button>
+                <button class="btn" id="close-user-modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add New User Modal -->
+    <div id="add-user-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New User</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="add-user-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="new-user-name">Full Name</label>
+                            <input type="text" id="new-user-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="new-username">Username</label>
+                            <input type="text" id="new-username" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="new-user-email">Email Address</label>
+                            <input type="email" id="new-user-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="new-user-role">用户类型</label>
+                            <select id="new-user-role" required>
+                                <option value="regular">普通用户</option>
+                                <option value="subscriber">订阅用户</option>
+                                <option value="admin">管理员</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="new-user-password">Password</label>
+                            <input type="password" id="new-user-password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-new-password">Confirm Password</label>
+                            <input type="password" id="confirm-new-password" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="new-user-phone">Phone Number</label>
+                            <input type="tel" id="new-user-phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="new-user-status">Account Status</label>
+                            <select id="new-user-status">
+                                <option value="active" selected>Active</option>
+                                <option value="pending">Pending Verification</option>
+                                <option value="suspended">Suspended</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="save-new-user-btn">Save User</button>
+                <button type="button" class="btn" id="cancel-add-user">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Health Data Modal -->
+    <div id="user-health-data-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <h3>User Health Data</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body" id="user-health-data-content">
+                <!-- Health data chart -->
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <div class="chart-title">Health Metrics</div>
+                        <div class="chart-actions">
+                            <select class="chart-filter" id="user-health-metric">
+                                <option value="heart-rate" selected>Heart Rate</option>
+                                <option value="oxygen">Oxygen Level</option>
+                                <option value="temperature">Temperature</option>
+                                <option value="respiratory">Respiratory Rate</option>
+                            </select>
+                            <select class="chart-filter" id="user-health-period">
+                                <option value="day">Today</option>
+                                <option value="week" selected>This Week</option>
+                                <option value="month">This Month</option>
+                                <option value="year">This Year</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="chart">
+                        <canvas id="userHealthChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Health data table -->
+                <div class="data-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date & Time</th>
+                                <th>Heart Rate (BPM)</th>
+                                <th>Oxygen Level (%)</th>
+                                <th>Temperature (°C)</th>
+                                <th>Resp. Rate (BPM)</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="user-health-data-table">
+                            <!-- Health data will be populated via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Health status summary -->
+                <div class="health-summary" style="margin-top: 20px;">
+                    <h4>Health Summary</h4>
+                    <div class="dashboard-widgets">
+                        <div class="widget">
+                            <div class="widget-icon blue">
+                                <i class="fas fa-heartbeat"></i>
+                            </div>
+                            <div class="widget-content">
+                                <div class="widget-title">Avg. Heart Rate</div>
+                                <div class="widget-value" id="avg-heart-rate">72 BPM</div>
+                            </div>
+                        </div>
+
+                        <div class="widget">
+                            <div class="widget-icon green">
+                                <i class="fas fa-lungs"></i>
+                            </div>
+                            <div class="widget-content">
+                                <div class="widget-title">Avg. Oxygen</div>
+                                <div class="widget-value" id="avg-oxygen">98%</div>
+                            </div>
+                        </div>
+
+                        <div class="widget">
+                            <div class="widget-icon orange">
+                                <i class="fas fa-temperature-high"></i>
+                            </div>
+                            <div class="widget-content">
+                                <div class="widget-title">Avg. Temperature</div>
+                                <div class="widget-value" id="avg-temp">36.6°C</div>
+                            </div>
+                        </div>
+
+                        <div class="widget">
+                            <div class="widget-icon red">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="widget-content">
+                                <div class="widget-title">Abnormal Readings</div>
+                                <div class="widget-value" id="abnormal-count">3</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="generate-report-btn">Generate Report</button>
+                <button class="btn btn-success" id="export-health-data-btn">Export Data</button>
+                <button class="btn" id="close-health-data-modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/admin.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+</body>
+</html>
